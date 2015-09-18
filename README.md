@@ -1,37 +1,51 @@
 # Mongodb
 Mongodb used for uContent
+## MongoDB Dockerfile
 
-Base Docker Image
 
-dockerfile/ubuntu
-Installation
+This repository contains **Dockerfile** of [MongoDB](http://www.mongodb.org/) for [Docker](https://www.docker.com/)'s [automated build](https://registry.hub.docker.com/u/dockerfile/mongodb/) published to the public [Docker Hub Registry](https://registry.hub.docker.com/).
 
-Install Docker.
 
-Download automated build from public Docker Hub Registry: docker pull dockerfile/mongodb
+### Base Docker Image
 
-(alternatively, you can build an image from Dockerfile: docker build -t="dockerfile/mongodb" github.com/dockerfile/mongodb)
+* [dockerfile/ubuntu](http://dockerfile.github.io/#/ubuntu)
 
-Usage
 
-Run mongod
+### Installation
 
-docker run -d -p 27017:27017 --name mongodb dockerfile/mongodb
-Run mongod w/ persistent/shared directory
+1. Install [Docker](https://www.docker.com/).
 
-docker run -d -p 27017:27017 -v <db-dir>:/data/db --name mongodb dockerfile/mongodb
-Run mongod w/ HTTP support
+2. Download [automated build](https://registry.hub.docker.com/u/dockerfile/mongodb/) from public [Docker Hub Registry](https://registry.hub.docker.com/): `docker pull dockerfile/mongodb`
 
-docker run -d -p 27017:27017 -p 28017:28017 --name mongodb dockerfile/mongodb mongod --rest --httpinterface
-Run mongod w/ Smaller default file size
+   (alternatively, you can build an image from Dockerfile: `docker build -t="dockerfile/mongodb" github.com/dockerfile/mongodb`)
 
-docker run -d -p 27017:27017 --name mongodb dockerfile/mongodb mongod --smallfiles
-Run mongo
 
-docker run -it --rm --link mongodb:mongodb dockerfile/mongodb bash -c 'mongo --host mongodb'
-Usage with VirtualBox (boot2docker-vm)
+### Usage
 
-You will need to set up nat port forwarding with:
+#### Run `mongod`
 
-VBoxManage modifyvm "boot2docker-vm" --natpf1 "guestmongodb,tcp,127.0.0.1,27017,,27017"
-This will allow you to connect to your mongo container with the standard mongo commands.
+    docker run -d -p 27017:27017 --name mongodb dockerfile/mongodb
+
+#### Run `mongod` w/ persistent/shared directory
+
+    docker run -d -p 27017:27017 -v <db-dir>:/data/db --name mongodb dockerfile/mongodb
+
+#### Run `mongod` w/ HTTP support
+
+    docker run -d -p 27017:27017 -p 28017:28017 --name mongodb dockerfile/mongodb mongod --rest --httpinterface
+
+#### Run `mongod` w/ Smaller default file size
+
+    docker run -d -p 27017:27017 --name mongodb dockerfile/mongodb mongod --smallfiles
+
+#### Run `mongo`
+
+    docker run -it --rm --link mongodb:mongodb dockerfile/mongodb bash -c 'mongo --host mongodb'
+
+##### Usage with VirtualBox (boot2docker-vm)
+
+_You will need to set up nat port forwarding with:_  
+
+    VBoxManage modifyvm "boot2docker-vm" --natpf1 "guestmongodb,tcp,127.0.0.1,27017,,27017"
+
+This will allow you to connect to your mongo container with the standard `mongo` commands.
